@@ -1,0 +1,23 @@
+planwise - SELECT * FROM users WHERE email = 'user7@example.com'
+==============================================
+No plan warnings. SQLite used indexes for this statement.
+
+planwise - SELECT id FROM users WHERE city = 'Cairo'
+==============================================
+[HIGH  ] full-scan        full table scan of users (~2000 rows)
+
+Suggested indexes:
+  CREATE INDEX IF NOT EXISTS idx_users_city ON "users"("city");
+
+1 warning(s), worst severity: high
+
+planwise - SELECT id FROM users ORDER BY age
+==============================================
+[HIGH  ] full-scan        full table scan of users (~2000 rows)
+[MEDIUM] temp-btree-order use temp b-tree for order by
+
+Suggested indexes:
+  CREATE INDEX IF NOT EXISTS idx_users_age ON "users"("age");
+
+2 warning(s), worst severity: high
+
